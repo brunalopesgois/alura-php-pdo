@@ -13,9 +13,15 @@ $studentRepository = new PdoStudentRepository($connection);
 // realizo processos de definição da turma
 
 $connection->beginTransaction();
-for ($i=0; $i < 5; $i++) {
-    $studentRepository->save(StudentFactory::create());
-}
-$connection->commit();
 
-var_dump($studentRepository->allStudents());
+try {
+    for ($i=0; $i < 5; $i++) {
+        $studentRepository->save(StudentFactory::create());
+    }
+    $connection->commit();
+} catch (PDOException $e) {
+    echo $e->getMessage();
+    $connection->rollBack();
+}
+
+//var_dump($studentRepository->allStudents());
