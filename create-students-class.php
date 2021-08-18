@@ -24,4 +24,4 @@ try {
     $connection->rollBack();
 }
 
-//var_dump($studentRepository->allStudents());
+var_dump($studentRepository->allStudents());
